@@ -9,7 +9,6 @@
 
     <ItemGroup>
       <Folder Include="Domain\" />
-      <Folder Include="Repository\" />
       <Folder Include="Service\Helpers\" />
     </ItemGroup>
 
