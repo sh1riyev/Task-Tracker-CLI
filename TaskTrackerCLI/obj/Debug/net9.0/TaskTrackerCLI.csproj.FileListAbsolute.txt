@@ -1,0 +1,15 @@
+/Users/sh1riyev/RiderProjects/TaskTrackerCLI/TaskTrackerCLI/bin/Debug/net9.0/TaskTrackerCLI
+/Users/sh1riyev/RiderProjects/TaskTrackerCLI/TaskTrackerCLI/bin/Debug/net9.0/TaskTrackerCLI.deps.json
+/Users/sh1riyev/RiderProjects/TaskTrackerCLI/TaskTrackerCLI/bin/Debug/net9.0/TaskTrackerCLI.runtimeconfig.json
+/Users/sh1riyev/RiderProjects/TaskTrackerCLI/TaskTrackerCLI/bin/Debug/net9.0/TaskTrackerCLI.dll
+/Users/sh1riyev/RiderProjects/TaskTrackerCLI/TaskTrackerCLI/bin/Debug/net9.0/TaskTrackerCLI.pdb
+/Users/sh1riyev/RiderProjects/TaskTrackerCLI/TaskTrackerCLI/obj/Debug/net9.0/TaskTrackerCLI.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sh1riyev/RiderProjects/TaskTrackerCLI/TaskTrackerCLI/obj/Debug/net9.0/TaskTrackerCLI.AssemblyInfoInputs.cache
+/Users/sh1riyev/RiderProjects/TaskTrackerCLI/TaskTrackerCLI/obj/Debug/net9.0/TaskTrackerCLI.AssemblyInfo.cs
+/Users/sh1riyev/RiderProjects/TaskTrackerCLI/TaskTrackerCLI/obj/Debug/net9.0/TaskTrackerCLI.csproj.CoreCompileInputs.cache
+/Users/sh1riyev/RiderProjects/TaskTrackerCLI/TaskTrackerCLI/obj/Debug/net9.0/TaskTrackerCLI.sourcelink.json
+/Users/sh1riyev/RiderProjects/TaskTrackerCLI/TaskTrackerCLI/obj/Debug/net9.0/TaskTrackerCLI.dll
+/Users/sh1riyev/RiderProjects/TaskTrackerCLI/TaskTrackerCLI/obj/Debug/net9.0/refint/TaskTrackerCLI.dll
+/Users/sh1riyev/RiderProjects/TaskTrackerCLI/TaskTrackerCLI/obj/Debug/net9.0/TaskTrackerCLI.pdb
+/Users/sh1riyev/RiderProjects/TaskTrackerCLI/TaskTrackerCLI/obj/Debug/net9.0/TaskTrackerCLI.genruntimeconfig.cache
+/Users/sh1riyev/RiderProjects/TaskTrackerCLI/TaskTrackerCLI/obj/Debug/net9.0/ref/TaskTrackerCLI.dll
