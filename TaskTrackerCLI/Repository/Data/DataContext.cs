@@ -1,4 +1,4 @@
-namespace TaskTrackerCLI.Data;
+namespace TaskTrackerCLI.Repository.Data;
 
 public static class DataContext<T>
 {

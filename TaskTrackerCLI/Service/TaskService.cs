@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using TaskTrackerCLI.Repository.Repositories;
+using TaskTrackerCLI.Repository.Repositories.Interfaces;
 using TaskTrackerCLI.Service.Interface;
 using Task = TaskTrackerCLI.Models.Task;
 
@@ -7,8 +8,8 @@ namespace TaskTrackerCLI.Service;
 
 public class TaskService : ITaskService
 {
-    private readonly TaskRepository _repository;
-    private int count = 1;
+    private readonly ITaskRepository _repository;
+    private int _count = 1;
 
     public TaskService()
     { 
@@ -18,15 +19,17 @@ public class TaskService : ITaskService
     public void Create(Task model)
     {
         if(model == null) throw new ArgumentNullException();
-        model.Id = count;
+        model.Id = _count;
         model.CreatedAt = DateTime.Now;
+        model.Status="In-Progress";
         _repository.Create(model);
-        count++;
+        _count++;
     }
 
     public void Update(int? id, Task model)
     {
      if (id == null) throw new ArgumentNullException();
+     model.UpdatedAt = DateTime.Now;
      _repository.Update(model,(int)id);
     }
 
@@ -46,10 +49,18 @@ public class TaskService : ITaskService
         model.Status = process;
     }
 
+    public Task? GetById(int? id)
+    {
+        if(id == null) throw new ArgumentNullException();
+        var task = _repository.GetById((int)id);
+        if(task == null) throw new ArgumentNullException("No tasks with this Id found");
+        return task;
+    }
+
     public List<Task> GetAll()
     {
         var tasks =_repository.GetAll();
-        if(!tasks.Any()) throw new ApplicationException("No tasks found");
+        if(tasks.Count == 0) throw new ApplicationException("No tasks found");
         return tasks;
     }
 

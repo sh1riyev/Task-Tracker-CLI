@@ -1,5 +1,5 @@
 using TaskTrackerCLI.Models;
-using TaskTrackerCLI.Data;
+using TaskTrackerCLI.Repository.Data;
 using TaskTrackerCLI.Repository.Repositories.Interfaces;
 
 namespace TaskTrackerCLI.Repository.Repositories;
@@ -29,7 +29,7 @@ public class BaseRepository<T> :IBaseRepository<T> where T : BaseEntity
 
     public T GetById(int id)
     {
-        return Data.DataContext<T>.Data.FirstOrDefault(m=>m.Id == id);
+        return DataContext<T>.Data.FirstOrDefault(m=>m.Id == id);
     }
 
     public List<T> GetAllWithExpression(Func<T, bool> expression)
