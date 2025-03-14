@@ -3,6 +3,5 @@
 TaskController taskController = new TaskController();
 
 taskController.Create();
-taskController.Update();
-taskController.ListAllTasks();
+taskController.ListAllTasksByStatus();
 

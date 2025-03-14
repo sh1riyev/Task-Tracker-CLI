@@ -27,7 +27,6 @@ public class TaskController
         _taskService.Create(model);
         Console.WriteLine("Task successfully created");
     }
-
     public void Update()
     {
        Id: Console.WriteLine("Enter Id of task to update");
@@ -75,7 +74,30 @@ public class TaskController
         
         
     }
+    public void Delete()
+    {
+        Id: Console.WriteLine("Enter Id of task to delete");
+        string text = Console.ReadLine();
+        int id;
+        bool answer= int.TryParse(text, out id);
 
+        if (answer)
+        {
+            var task = _taskService.GetById(id);
+            if (task is null)
+            {
+                Console.WriteLine("Task not found,choose correct id");
+                goto Id;
+            }
+            _taskService.Delete(id);
+            Console.WriteLine("Task successfully deleted");
+        }
+        else
+        {
+            Console.WriteLine("Id must be a number");
+            goto Id;
+        }
+    }
     public void ListAllTasks()
     {
         var tasks = _taskService.GetAll();
@@ -86,6 +108,63 @@ public class TaskController
         foreach (var task in tasks)
         {
             Console.WriteLine($"ID:{task.Id} \n Description:{task.Description} \n Status:{task.Status} \n CreatedAt:{task.CreatedAt}");
+        }
+    }
+    public void ListAllTasksByStatus()
+    {
+        Console.WriteLine("Choose status of tasks you want to list:\n1:Compeleted\n2:Todo\n3:In-Progress");
+      Status:  string status = Console.ReadLine();
+        int number;
+        bool answer= int.TryParse(status, out number);
+        if (answer)
+        {
+            switch (number)
+            {
+                case 1:
+                    var completedTasks = _taskService.GetAllCompleted();
+                    if (completedTasks is null)
+                    {
+                        Console.WriteLine("No tasks found");
+                        goto Status;
+                    }
+                    foreach (var task in completedTasks)
+                    {
+                        Console.WriteLine($"ID:{task.Id} \n Description:{task.Description} \n Status:{task.Status} \n");
+                    }
+                    break;
+                case 2:
+                    var todoTasks = _taskService.GetAllNotDone();
+                    if (todoTasks is null)
+                    {
+                        Console.WriteLine("No tasks found");
+                        goto Status;
+                    }
+                    foreach (var task in todoTasks)
+                    {
+                        Console.WriteLine($"ID:{task.Id} \n Description:{task.Description} \n Status:{task.Status} \n");
+                    }
+                    break;
+                case 3:
+                    var inProgressTasks = _taskService.GetAllInProgress();
+                    if (inProgressTasks is null)
+                    {
+                        Console.WriteLine("No tasks found");
+                        goto Status;
+                    }
+                    foreach (var task in inProgressTasks)
+                    {
+                        Console.WriteLine($"ID:{task.Id} \n Description:{task.Description} \n Status:{task.Status}");
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Please enter a valid status");
+                    goto Status;
+            }
+        }
+        else
+        {
+            Console.WriteLine("Please enter a valid status");
+            goto Status;
         }
     }
 }
