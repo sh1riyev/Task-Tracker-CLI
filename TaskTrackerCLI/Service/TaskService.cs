@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using TaskTrackerCLI.Repository.Repositories;
 using TaskTrackerCLI.Repository.Repositories.Interfaces;
+using TaskTrackerCLI.Service.Helpers.ExceptionHandler;
 using TaskTrackerCLI.Service.Interface;
 using Task = TaskTrackerCLI.Models.Task;
 
@@ -18,31 +19,46 @@ public class TaskService : ITaskService
 
     public void Create(Task model)
     {
-        if(model == null) throw new ArgumentNullException();
-        model.Id = _count;
-        model.CreatedAt = DateTime.Now;
-        model.Status="In-Progress";
-        _repository.Create(model);
-        _count++;
+        GlobalErrorHandler.Handle(() =>
+        {
+            if(model == null) throw new ArgumentNullException(nameof(model), "Model cannot be null");
+            model.Id = _count;
+            model.CreatedAt = DateTime.Now;
+            model.Status="In-Progress";
+            _repository.Create(model);
+            _count++;
+        });
     }
 
     public void Update(int? id, Task model)
     {
-     if (id == null) throw new ArgumentNullException();
-     model.UpdatedAt = DateTime.Now;
-     _repository.Update(model,(int)id);
+        GlobalErrorHandler.Handle(() =>
+        {
+            if (id == null) throw new ArgumentNullException(nameof(id), "Id cannot be null");
+            model.UpdatedAt = DateTime.Now;
+            _repository.Update(model, (int)id);
+
+        });
     }
 
     public void Delete(int? id)
     {
-        if (id == null) throw new ArgumentNullException();
-        var model = _repository.GetById(Convert.ToInt32(id));
-        if (model == null) throw new ArgumentNullException();
-        _repository.Delete(model);
+        GlobalErrorHandler.Handle(() =>
+        {
+            if (!id.HasValue) 
+                throw new ArgumentNullException(nameof(id), "ID cannot be null.");
+
+            var model = _repository.GetById(id.Value);
+            if (model == null) 
+                throw new InvalidOperationException("Entity not found.");
+
+            _repository.Delete(model);
+        });
     }
 
     public void Mark(int? id, string process)
     {
+        
         if(id == null) throw new ArgumentNullException();
         var model = _repository.GetById(Convert.ToInt32(id));
         if (model == null) throw new ArgumentNullException();
