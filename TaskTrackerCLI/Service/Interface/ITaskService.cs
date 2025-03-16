@@ -8,9 +8,9 @@ public interface ITaskService
     void Update(int?id,Task model);
     void Delete(int ? id);
     void Mark(int?id,string process);
-    Models.Task? GetById(int ? id);
-    List<Task>? GetAll();
-    List<Task> GetAllInProgress();
-    List<Task> GetAllCompleted();
-    List<Task> GetAllNotDone();
+    Task? GetById(int ? id);
+    List<Task>?  GetAll();
+    List<Task>? GetAllInProgress();
+    List<Task>? GetAllCompleted();
+    List<Task>? GetAllNotDone();
 }
