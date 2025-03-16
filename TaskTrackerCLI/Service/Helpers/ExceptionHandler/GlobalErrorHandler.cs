@@ -27,6 +27,31 @@ public static class GlobalErrorHandler
             LogError("An unexpected error occurred", ex);
         }
     }
+    
+    public static T? Handle<T> (Func<T> function)
+    {
+        try
+        {
+            return function();
+        }
+        catch (ArgumentNullException ex)
+        {
+            LogError("Null argument provided", ex);
+        }
+        catch (ArgumentException ex)
+        {
+            LogError("Invalid argument provided", ex);
+        }
+        catch (InvalidOperationException ex)
+        {
+            LogError("Invalid operation", ex);
+        }
+        catch (Exception ex)
+        {
+            LogError("An unexpected error occurred", ex);
+        }
+        return default;
+    }
 
     public static void LogError(string message, Exception ex)
     {

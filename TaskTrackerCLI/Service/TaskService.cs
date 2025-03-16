@@ -58,47 +58,67 @@ public class TaskService : ITaskService
 
     public void Mark(int? id, string process)
     {
+        GlobalErrorHandler.Handle(()=>
+        {
+            if(id == null) throw new ArgumentNullException(nameof(id), "Id cannot be null");
+            var model = _repository.GetById(Convert.ToInt32(id));
+            if (model == null) throw new ArgumentNullException(nameof(model), "Entity not found.");
+            model.Status = process;
+        });
         
-        if(id == null) throw new ArgumentNullException();
-        var model = _repository.GetById(Convert.ToInt32(id));
-        if (model == null) throw new ArgumentNullException();
-        model.Status = process;
     }
 
     public Task? GetById(int? id)
     {
-        if(id == null) throw new ArgumentNullException();
-        var task = _repository.GetById((int)id);
-        if(task == null) throw new ArgumentNullException("No tasks with this Id found");
-        return task;
+        return GlobalErrorHandler.Handle(() =>
+        {
+            if (id == null) throw new ArgumentNullException(nameof(id), "ID cannot be null.");
+            var task = _repository.GetById((int)id);
+            if (task == null) throw new ArgumentNullException("No tasks with this Id found");
+            return task;
+        });
     }
 
-    public List<Task> GetAll()
+    public List<Task>? GetAll()
     {
-        var tasks =_repository.GetAll();
-        if(tasks.Count == 0) throw new ApplicationException("No tasks found");
-        return tasks;
+        return GlobalErrorHandler.Handle(() =>
+        {
+            var tasks = _repository.GetAll();
+            if (tasks.Count == 0) throw new ApplicationException("No tasks found");
+            return tasks;
+        });
     }
 
-    public List<Task> GetAllInProgress()
+    public List<Task>? GetAllInProgress()
     {
-        var tasks =_repository.GetAll();
-        if(!tasks.Any(m=>m.Status=="In-Progress")) throw new ApplicationException("Currently there are no tasks in progress");
-        return tasks;
+        return GlobalErrorHandler.Handle(() =>
+        {
+            var tasks = _repository.GetAll();
+            if (!tasks.Any(m => m.Status == "In-Progress"))
+                throw new ApplicationException("Currently there are no tasks in progress");
+            return tasks;
+        });
     }
 
-    public List<Task> GetAllCompleted()
+    public List<Task>? GetAllCompleted()
     {
-        var tasks =_repository.GetAll();
-        if(!tasks.Any(m=>m.Status=="Completed")) throw new ApplicationException("Currently there are no completed tasks");
-        return tasks;
+        return GlobalErrorHandler.Handle(() =>
+        {
+            var tasks = _repository.GetAll();
+            if (!tasks.Any(m => m.Status == "Completed"))
+                throw new ApplicationException("Currently there are no completed tasks");
+            return tasks;
+        });
     }
 
-    public List<Task> GetAllNotDone()
+    public List<Task>? GetAllNotDone()
     {
-        var tasks =_repository.GetAll();
-        if (!tasks.Any(m => m.Status == "todo"))
-            throw new ApplicationException("Currently there are no tasks on the line ");
-        return tasks;
+        return GlobalErrorHandler.Handle(() =>
+        {
+            var tasks = _repository.GetAll();
+            if (!tasks.Any(m => m.Status == "todo"))
+                throw new ApplicationException("Currently there are no tasks on the line ");
+            return tasks;
+        });
     }
 }
