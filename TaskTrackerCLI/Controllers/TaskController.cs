@@ -1,4 +1,5 @@
 using TaskTrackerCLI.Service;
+using TaskTrackerCLI.Service.Helpers.ExceptionHandler;
 using TaskTrackerCLI.Service.Interface;
 using Task = TaskTrackerCLI.Models.Task;
 
@@ -89,7 +90,7 @@ public class TaskController
                 Console.WriteLine("Task not found,choose correct id");
                 goto Id;
             }
-            _taskService.Delete(id);
+            _taskService.Delete(task);
             Console.WriteLine("Task successfully deleted");
         }
         else
@@ -103,7 +104,7 @@ public class TaskController
         var tasks = _taskService.GetAll();
         if (tasks is null)
         {
-            Console.WriteLine("No tasks found");
+            return;
         }
         foreach (var task in tasks)
         {
@@ -169,6 +170,45 @@ public class TaskController
     }
     public void Mark()
     {
+        GlobalErrorHandler.Handle(() =>
+        {
+            Console.WriteLine("Choose task to change mark:");
+            Id : string text = Console.ReadLine();
+            int id;
+            if (int.TryParse(text, out id))
+            {
+                var task = _taskService.GetById(id);
+                if (task is not null)
+                {
+                    Status:Console.WriteLine("Choose status:\n1:In progress\n2:Completed\n3:Todo");
+                    int status = int.Parse(Console.ReadLine());
+                    switch (status)
+                    {
+                        case 1:
+                            task.Status = "In-Progress";
+                            break;
+                        case 2:
+                            task.Status = "Completed";
+                            break;
+                        case 3:
+                            task.Status = "Todo";
+                            break;
+                        default:
+                            Console.WriteLine("Please enter a valid status");
+                            goto Status;
+                    }
+                    _taskService.Mark(id, task);
+                    Console.WriteLine("Task status successfully marked");
+                    return;
+                }
+                goto Id;
+            }
+            else
+            {
+                Console.WriteLine("Please enter a valid id");
+                goto Id;
+            }
+        });
         
     }
 }

@@ -7,5 +7,5 @@ public enum OperationType
     TaskDelete,
     TaskListAll,
     TaskListByStatus,
- 
+    TaskMark
 };

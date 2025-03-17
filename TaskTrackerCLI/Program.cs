@@ -13,7 +13,7 @@ static void Headline()
                                          3.Delete Task
                                          4.List All Tasks
                                          5.List Tasks by Status
-
+                                         6.Mark Task
                                          """);
 }
 
@@ -25,7 +25,8 @@ static void Headline()
         { OperationType.TaskUpdate, () => taskController.Update() },
         { OperationType.TaskDelete, () => taskController.Delete() },
         { OperationType.TaskListAll ,()=>taskController.ListAllTasks()},
-        { OperationType.TaskListByStatus ,()=>taskController.ListAllTasksByStatus()}
+        { OperationType.TaskListByStatus ,()=>taskController.ListAllTasksByStatus()},
+        { OperationType.TaskMark ,()=>taskController.Mark()}
     };
 
     while (true)
